@@ -57,32 +57,30 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	const logout = async () => {
-    let key = await AsyncStorage.getItem('key');
-    AsyncStorage.removeItem('userInfo');
-		    AsyncStorage.removeItem('key');
-		    setUserInfo({});
-		    setIsLoading(false);
-		
-		APIKit
-		  .post(
-		    'api/auth/logout',
-		    {'key': JSON.parse(key)},
-		    {
-		      headers: {Authorization: `Bearer ${userInfo}`},
-		    },
-		  )
-		  .then(res => {
-		    console.log(res.data);
-		    AsyncStorage.removeItem('userInfo');
-		    AsyncStorage.removeItem('key');
-		    setUserInfo({});
-		    setIsLoading(false);
-		  })
-		  .catch(e => {
-		    console.log(`logout error ${e}`);
-		    AsyncStorage.removeItem('userInfo');
+		let key = await AsyncStorage.getItem('key');
+		AsyncStorage.removeItem('userInfo');
+		AsyncStorage.removeItem('key');
+		setUserInfo({});
+		setIsLoading(false);
 
-		  });
+		APIKit.post(
+			'api/auth/logout',
+			{ key: JSON.parse(key) }
+			// {
+			//   headers: {Authorization: `Bearer ${userInfo}`},
+			// },
+		)
+			.then((res) => {
+				console.log(res.data);
+				AsyncStorage.removeItem('userInfo');
+				AsyncStorage.removeItem('key');
+				setUserInfo({});
+				setIsLoading(false);
+			})
+			.catch((e) => {
+				console.log(`logout error ${e}`);
+				AsyncStorage.removeItem('userInfo');
+			});
 	};
 
 	const isLoggedIn = async () => {
@@ -102,7 +100,7 @@ export const AuthProvider = ({ children }) => {
 			console.log(`is logged in error ${e}`);
 		}
 	};
-
+	//making connection persistent when refreshing AsyncStorage
 	useEffect(() => {
 		isLoggedIn();
 	}, []);
