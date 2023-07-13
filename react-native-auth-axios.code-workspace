@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../react-native-auth-axios"
+		},
+		{
+			"path": "../react-js"
+		},
+		{
+			"path": "../react-native-auth"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {}
+}
