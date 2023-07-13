@@ -1,0 +1,11 @@
+{
+    "extends": "expo/tsconfig.base",
+    "compilerOptions": {
+        "baseUrl": "src",
+        "paths": {
+            "@/*": [
+                "src/*"// if you have a file at src/components/Button.tsx and wish to import it using the alias @/components/Button
+            ]
+        }
+    },
+}
