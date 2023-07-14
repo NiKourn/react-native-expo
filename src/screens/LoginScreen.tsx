@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
-import { Button, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { AuthContext } from '../context/AuthContext';
-import {styles} from '../styles/styles';
+import { styles } from '../styles/styles';
 
 const LoginScreen = ({ navigation }) => {
 	const [email, setEmail] = useState(null);
@@ -13,6 +13,9 @@ const LoginScreen = ({ navigation }) => {
 		<View style={styles.container}>
 			<Spinner visible={isLoading} />
 			<View style={styles.wrapper}>
+				<View>
+						<Image source={require('../../assets/images/logo/hh-gold-logo.png')} />
+					</View>
 				<TextInput style={styles.input} value={email} placeholder="Enter email" onChangeText={(text) => setEmail(text)} />
 
 				<TextInput style={styles.input} value={password} placeholder="Enter password" onChangeText={(text) => setPassword(text)} secureTextEntry />

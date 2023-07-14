@@ -9,12 +9,13 @@ import { AuthContext } from '../../context/AuthContext';
 import SplashScreen from '../../screens/SplashScreen';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Stack = createNativeStackNavigator();
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 const NavigationStack = () => {
-	const { splashLoading } = useContext(AuthContext);
+	const { splashLoading, userInfo } = useContext(AuthContext);
 
 	return (
 		<NavigationContainer>
@@ -27,12 +28,19 @@ const NavigationStack = () => {
 				) : (
 					//Auth Screens
 					<>
-						<Stack.Group>
+						<Stack.Group navigationKey={!userInfo.key ? 'user' : 'guest'}>
 							<Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: true }} />
 							<Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
 						</Stack.Group>
 					</>
 				)}
+
+				{/* <>
+						<Stack.Group navigationKey={!userInfo.key ? 'user' : 'guest'}>
+							<Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: true }} />
+							<Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
+						</Stack.Group>
+					</> */}
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
@@ -41,7 +49,7 @@ const NavigationStack = () => {
 export const BottomTabs = () => {
 	return (
 		<NavigationContainer>
-			<Tab.Navigator labeled={false}>
+			<Tab.Navigator>
 				<Tab.Screen
 					name="Home"
 					component={HomeScreen}
