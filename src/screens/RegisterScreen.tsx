@@ -5,17 +5,17 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  StyleSheet,
 } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {AuthContext} from '../context/AuthContext';
+import {styles} from '../styles/styles';
 
 const RegisterScreen = ({navigation}) => {
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
-  const {isLoading, register} = useContext(AuthContext);
+  const {isLoading, register, logout} = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
@@ -60,26 +60,5 @@ const RegisterScreen = ({navigation}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  wrapper: {
-    width: '80%',
-  },
-  input: {
-    marginBottom: 12,
-    borderWidth: 1,
-    borderColor: '#bbb',
-    borderRadius: 5,
-    paddingHorizontal: 14,
-  },
-  link: {
-    color: 'blue',
-  },
-});
 
 export default RegisterScreen;

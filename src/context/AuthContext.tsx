@@ -2,13 +2,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import APIKit, { setClientToken } from '../API/APIKit';
 import React, { createContext, useEffect, useState } from 'react';
 
-let defaultContext = {
+const defaultContext = {
 	isLoading: false,
-	userInfo: {},
+	userInfo: { key: '', user: { username: '' } } || {},
 	splashLoading: false,
-	register: {},
-	login: undefined,
-	logout: undefined,
+	register: (name: string, email: string, password: string) => {},
+	login: (info: object) => {},
+	logout: () => {},
 };
 
 export const AuthContext = createContext(defaultContext);
@@ -40,7 +40,6 @@ export const AuthProvider = ({ children }) => {
 
 	const login = (info: object) => {
 		setIsLoading(true);
-
 		APIKit.post('api/auth', info)
 			.then((res) => {
 				let userInfo = res.data;
@@ -58,14 +57,10 @@ export const AuthProvider = ({ children }) => {
 
 	const logout = async () => {
 		let key = await AsyncStorage.getItem('key');
-		AsyncStorage.removeItem('userInfo');
-		AsyncStorage.removeItem('key');
-		setUserInfo({});
-		setIsLoading(false);
 
 		APIKit.post(
 			'api/auth/logout',
-			{ key: JSON.parse(key) }
+			{ 'X-API-KEY': JSON.parse(key), grant_type: 'bearer' }
 			// {
 			//   headers: {Authorization: `Bearer ${userInfo}`},
 			// },
@@ -80,10 +75,11 @@ export const AuthProvider = ({ children }) => {
 			.catch((e) => {
 				console.log(`logout error ${e}`);
 				AsyncStorage.removeItem('userInfo');
+				AsyncStorage.removeItem('key');
 			});
 	};
 
-	const isLoggedIn = async () => {
+	const loggedIn = async () => {
 		try {
 			setSplashLoading(true);
 
@@ -102,7 +98,7 @@ export const AuthProvider = ({ children }) => {
 	};
 	//making connection persistent when refreshing AsyncStorage
 	useEffect(() => {
-		isLoggedIn();
+		loggedIn();
 	}, []);
 
 	return (

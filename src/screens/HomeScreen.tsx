@@ -6,10 +6,12 @@ import { AuthContext } from '../context/AuthContext';
 const HomeScreen = () => {
 	const { isLoading, logout, userInfo } = useContext(AuthContext);
 
+	
+
 	return (
 		<View style={styles.container}>
 			<Spinner visible={isLoading} />
-			<Text style={styles.welcome}>Welcome {userInfo.user.username} </Text> 
+			<Text style={styles.welcome}>Welcome {userInfo ? userInfo.user.username : ''} </Text>
 			<Button title="Logout" color="red" onPress={logout} />
 		</View>
 	);
