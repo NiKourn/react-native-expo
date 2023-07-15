@@ -16,7 +16,6 @@ const Products = () => {
 	return (
 		<View style={styles.container}>
 			<Text>{
-				
 			JSON.stringify(Products)
 			}</Text>
 		</View>
