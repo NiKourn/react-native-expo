@@ -168,26 +168,10 @@ export const AuthProviderDummy = ({ children }) => {
 
 	const logout = async () => {
 		let key = await AsyncStorage.getItem('key');
-
-		// APIKitDummy.post(
-		// 	'api/auth/logout',
-		// 	{ 'X-API-KEY': JSON.parse(key), grant_type: 'bearer' }
-		// 	// {
-		// 	//   headers: {Authorization: `Bearer ${userInfo}`},
-		// 	// },
-		// )
-		// 	.then((res) => {
-		// console.log(res.data);
 		AsyncStorage.removeItem('userInfo');
 		AsyncStorage.removeItem('key');
 		setUserInfo({});
 		setIsLoading(false);
-		// })
-		// .catch((e) => {
-		// console.log(`logout error ${e}`);
-		// AsyncStorage.removeItem('userInfo');
-		// AsyncStorage.removeItem('key');
-		// });
 	};
 
 	const getProducts = async () => {
