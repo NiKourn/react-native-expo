@@ -13,9 +13,9 @@ const LoginScreen = ({ navigation }) => {
 		<View style={styles.container}>
 			<Spinner visible={isLoading} />
 			<View style={styles.wrapper}>
-				<View>
-						<Image source={require('../../assets/images/logo/hh-gold-logo.png')} />
-					</View>
+				
+				<Image source={require('../../assets/images/logo/hh-gold-logo.png')} />
+					
 				<TextInput style={styles.input} value={email} placeholder="Enter email" onChangeText={(text) => setEmail(text)} />
 
 				<TextInput style={styles.input} value={password} placeholder="Enter password" onChangeText={(text) => setPassword(text)} secureTextEntry />

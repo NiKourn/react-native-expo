@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, Image } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { AuthContext } from '../context/AuthContext';
+import { images } from '../styles/styles';
 
 const HomeScreen = () => {
 	const { isLoading, logout, userInfo } = useContext(AuthContext);
@@ -12,6 +13,7 @@ const HomeScreen = () => {
 		<View style={styles.container}>
 			<Spinner visible={isLoading} />
 			<Text style={styles.welcome}>Welcome {userInfo ? userInfo.user.username : ''} </Text>
+			<Image source={{uri: userInfo.image}} style={images.images}/>
 			<Button title="Logout" color="red" onPress={logout} />
 		</View>
 	);

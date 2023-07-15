@@ -10,6 +10,7 @@ import SplashScreen from '../../screens/SplashScreen';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Products from '../../screens/Products';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -60,6 +61,13 @@ export const BottomTabs = () => {
 				<Tab.Screen
 					name="Logout"
 					component={RegisterScreen}
+					options={{
+						tabBarIcon: ({ color }) => <MaterialCommunityIcons name="logout" color={color} size={26} />,
+					}}
+				/>
+				<Tab.Screen
+					name="Products"
+					component={Products}
 					options={{
 						tabBarIcon: ({ color }) => <MaterialCommunityIcons name="logout" color={color} size={26} />,
 					}}
