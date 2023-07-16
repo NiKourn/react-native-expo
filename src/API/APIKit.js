@@ -12,4 +12,4 @@ export const setClientTokenDummy = token => {
   });
 };
 
-export default APIKit;
+export default APIKitDummy;

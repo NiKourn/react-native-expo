@@ -1,17 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import APIKit, { APIKitDummy, setClientTokenDummy } from '../API/APIKit';
+import APIKitDummy, { setClientTokenDummy } from '../API/APIKit';
 import React, { createContext, useEffect, useState } from 'react';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 const defaultContext = {
 	isLoading: false,
-	userInfo: { key: '', user: { username: '' }, image: '' } || {},
+	userInfo: { firstName: '', key: '', user: { username: '' }, image: '' } || {},
 	splashLoading: false,
 	register: (name: string, email: string, password: string) => {},
 	login: (info: object) => {},
 	logout: () => {},
 	getProducts: () => {},
-	Products: {},
+	Products: [],
 };
 
 export const AuthContext = createContext(defaultContext);
@@ -21,7 +20,7 @@ export const AuthProviderDummy = ({ children }) => {
 	const [userInfo, setUserInfo] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
 	const [splashLoading, setSplashLoading] = useState(false);
-	const [Products, setProducts] = useState({});
+	const [Products, setProducts] = useState([]);
 
 	const register = (name: string, email: string, password: string) => {
 		setIsLoading(true);
@@ -44,9 +43,14 @@ export const AuthProviderDummy = ({ children }) => {
 	};
 
 	const login = (info: object) => {
-		let dummyCredentials = JSON.stringify({ username: 'atuny0', password: '9uQFF1Lh' });
+		let dummyCredentials = JSON.stringify({
+			username: 'atuny0',
+			password: '9uQFF1Lh',
+		});
 		setIsLoading(true);
-		APIKitDummy.post('auth/login', dummyCredentials, { headers: { 'Content-Type': 'application/json' } })
+		APIKitDummy.post('auth/login', dummyCredentials, {
+			headers: { 'Content-Type': 'application/json' },
+		})
 			.then((res) => {
 				let userInfo = res.data;
 				userInfo.key = userInfo.token;
@@ -73,14 +77,17 @@ export const AuthProviderDummy = ({ children }) => {
 
 	const getProducts = async () => {
 		setIsLoading(true);
-
 		let getKey = await AsyncStorage.getItem('key').then((res) => {
 			return res;
 		});
 
-		await APIKitDummy.get('auth/products/?limit=10', { headers: { Authorization: `Bearer ${getKey}`, 'Content-Type': 'application/json' } })
+		await APIKitDummy.get('auth/products/?limit=15', {
+			headers: {
+				Authorization: `Bearer ${getKey}`,
+				'Content-Type': 'application/json',
+			},
+		})
 			.then((res) => {
-				//setProducts(res.data.products);
 				const products = [];
 				for (const key in res.data.products) {
 					const product = {
@@ -89,6 +96,7 @@ export const AuthProviderDummy = ({ children }) => {
 					};
 					products.push(product);
 				}
+				console.log(products);
 				setProducts(products);
 				setIsLoading(false);
 			})

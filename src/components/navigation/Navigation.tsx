@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../../screens/HomeScreen';
 import LoginScreen from '../../screens/LoginScreen';
 import RegisterScreen from '../../screens/RegisterScreen';
+import Logout from '../../screens/Logout';
 import { AuthContext } from '../../context/AuthContext';
 import SplashScreen from '../../screens/SplashScreen';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -13,7 +14,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Products from '../../screens/Products';
 
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 const NavigationStack = () => {
 	const { splashLoading, userInfo } = useContext(AuthContext);
@@ -59,17 +60,17 @@ export const BottomTabs = () => {
 					}}
 				/>
 				<Tab.Screen
-					name="Logout"
-					component={RegisterScreen}
-					options={{
-						tabBarIcon: ({ color }) => <MaterialCommunityIcons name="logout" color={color} size={26} />,
-					}}
-				/>
-				<Tab.Screen
 					name="Products"
 					component={Products}
 					options={{
-						tabBarIcon: ({ color }) => <MaterialCommunityIcons name="logout" color={color} size={26} />,
+						tabBarIcon: ({ color }) => <MaterialCommunityIcons name="shopping" color={color} size={26} />,
+					}}
+				/>
+				<Tab.Screen
+					name="Logout"
+					component={Logout}
+					options={{
+						tabBarIcon: ({ color }) => <MaterialCommunityIcons name="logout" color='#FF0000' size={26} />,
 					}}
 				/>
 			</Tab.Navigator>

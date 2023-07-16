@@ -5,16 +5,16 @@ import { AuthContext } from '../context/AuthContext';
 import { images } from '../styles/styles';
 
 const HomeScreen = () => {
-	const { isLoading, logout, userInfo } = useContext(AuthContext);
+	const { isLoading, userInfo } = useContext(AuthContext);
 
-	
+	console.log(userInfo);
 
 	return (
 		<View style={styles.container}>
 			<Spinner visible={isLoading} />
-			<Text style={styles.welcome}>Welcome {userInfo ? userInfo.user.username : ''} </Text>
 			<Image source={{uri: userInfo.image}} style={images.images}/>
-			<Button title="Logout" color="red" onPress={logout} />
+			<Text style={styles.welcome}>Welcome {userInfo ? userInfo.firstName : ''}! </Text>
+			{/* <Button title="Logout" color="red" onPress={logout} /> */}
 		</View>
 	);
 };
