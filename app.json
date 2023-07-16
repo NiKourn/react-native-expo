@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "react-native-expo",
-    "slug": "react-native-expo",
-    "version": "1.0.0",
+    "slug": "react-app-for-testing",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -21,10 +21,23 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.nikourn.reactappfortesting"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "32efe9fb-f359-49bd-b224-b9ab9871cd25"
+      }
+    },
+    "owner": "nikourn",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/32efe9fb-f359-49bd-b224-b9ab9871cd25"
     }
   }
 }
