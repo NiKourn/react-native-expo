@@ -15,10 +15,12 @@ npx expo install react-native-screens
 
 OR simply npm install :D
 
-
 npm install -g eas-cli (package to build public installations)
 
 eas build -p android
 
+(perform update with current branch and latest commit message) -> eas update --branch --auto
+
+guides/info -> [https://docs.expo.dev/eas-update/eas-cli/](https://docs.expo.dev/eas-update/eas-cli/)
 
 Android app id: com.nikourn.reactappfortesting
