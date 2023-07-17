@@ -12,7 +12,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const Products = () => {
-	const { Products, isLoading, loadMore } = useContext(ShopContext);
+	const { Products, isLoading, loadMore, isAllDataLoaded } = useContext(ShopContext);
+	const [areImagesLoaded, setImagesLoaded] = useState(false);
+
+	const handleImageLoad = () => {
+	  setImagesLoaded(true);
+	};
 
 	const myListEmpty = () => {
 		return (
@@ -25,18 +30,10 @@ const Products = () => {
 
 	const renderItem = ({ item }) => (
 		<View style={styles.product}>
-			<Image source={{ uri: item.thumbnail }} style={images.images} />
+			<Image source={{ uri: item.thumbnail }} style={images.images} onLoad={handleImageLoad}/>
 			<Text key={item.id}>{item.title}</Text>
 		</View>
 	);
-
-	const renderFooter = () => {
-		if (isLoading) {
-		  return <Spinner visible={true} />;
-		} else {
-		  return null;
-		}
-	  };
 
 	let list = (
 		<FlatList
@@ -53,13 +50,13 @@ const Products = () => {
 						marginBottom: 10,
 						fontWeight: 'bold',
 					}}>
-					Our Products
+					Our Products||{Products.length}
 				</Text>
 			)}
 			renderItem={renderItem}
 			onEndReached={loadMore} // Load more when reaching the end of the list
 			onEndReachedThreshold={0.1} // Load more when 50% of the list is scrolled
-			ListFooterComponent={renderFooter} // Show spinner at the bottom when loading more
+			ListFooterComponent={<Spinner visible={!isAllDataLoaded && isLoading} />} // Show spinner at the bottom when loading more
 		/>
 	);
 

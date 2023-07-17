@@ -7,8 +7,6 @@ import { images } from '../styles/styles';
 const HomeScreen = () => {
 	const { isLoading, userInfo } = useContext(AuthContext);
 
-	console.log(userInfo);
-
 	return (
 		<View style={styles.container}>
 			<Spinner visible={isLoading} />
