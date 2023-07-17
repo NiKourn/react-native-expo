@@ -8,6 +8,7 @@ const defaultContext = {
 	Products: [],
 	loadMore: () => {},
     isAllDataLoaded: false,
+	page: 1,
 };
 
 export const ShopContext = createContext(defaultContext);
@@ -53,9 +54,7 @@ const ShopProvider = ({ children }) => {
 		}
 	};
 
-    useEffect(() => {
-        getProducts();
-    }, [page]);
+   
 
     useEffect(() => {
         if (page >= allPages + 1) {
@@ -72,7 +71,8 @@ const ShopProvider = ({ children }) => {
 				getProducts,
 				Products,
 				loadMore,
-                isAllDataLoaded
+                isAllDataLoaded,
+				page
 			}}>
 			{children}
 		</ShopContext.Provider>

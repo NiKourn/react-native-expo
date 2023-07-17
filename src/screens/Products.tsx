@@ -12,8 +12,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const Products = () => {
-	const { Products, isLoading, loadMore, isAllDataLoaded } = useContext(ShopContext);
+	const { Products, isLoading, loadMore, isAllDataLoaded, page, getProducts } = useContext(ShopContext);
 	const [areImagesLoaded, setImagesLoaded] = useState(false);
+
+	useEffect(() => {
+        getProducts();
+    }, [page]);
 
 	const handleImageLoad = () => {
 	  setImagesLoaded(true);
@@ -35,7 +39,8 @@ const Products = () => {
 		</View>
 	);
 
-	let list = (
+	return (
+		<SafeAreaView style={styles.safeArea}>
 		<FlatList
 			columnWrapperStyle={styles.flatList}
 			data={Products}
@@ -50,7 +55,7 @@ const Products = () => {
 						marginBottom: 10,
 						fontWeight: 'bold',
 					}}>
-					Our Products||{Products.length}
+					Products||{Products.length}
 				</Text>
 			)}
 			renderItem={renderItem}
@@ -58,9 +63,10 @@ const Products = () => {
 			onEndReachedThreshold={0.1} // Load more when 50% of the list is scrolled
 			ListFooterComponent={<Spinner visible={!isAllDataLoaded && isLoading} />} // Show spinner at the bottom when loading more
 		/>
+		</SafeAreaView>
 	);
 
-	return <SafeAreaView style={styles.safeArea}>{list}</SafeAreaView>;
+	
 };
 
 export default Products;
