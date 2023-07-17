@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Button, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../context/nested/AuthContext';
 import { styles } from '../styles/styles';
 
 const LoginScreen = ({ navigation }) => {

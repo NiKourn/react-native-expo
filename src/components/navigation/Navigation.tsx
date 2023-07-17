@@ -6,7 +6,7 @@ import HomeScreen from '../../screens/HomeScreen';
 import LoginScreen from '../../screens/LoginScreen';
 import RegisterScreen from '../../screens/RegisterScreen';
 import Logout from '../../screens/Logout';
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from '../../context/nested/AuthContext';
 import SplashScreen from '../../screens/SplashScreen';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -25,14 +25,26 @@ const NavigationStack = () => {
 				{splashLoading ? (
 					//Splash Screen
 					<Stack.Group>
-						<Stack.Screen name="Splash Screen" component={SplashScreen} options={{ headerShown: false }} />
+						<Stack.Screen
+							name="Splash Screen"
+							component={SplashScreen}
+							options={{ headerShown: false }}
+						/>
 					</Stack.Group>
 				) : (
 					//Auth Screens
 					<>
 						<Stack.Group navigationKey={!userInfo.key ? 'user' : 'guest'}>
-							<Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: true }} />
-							<Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
+							<Stack.Screen
+								name="Login"
+								component={LoginScreen}
+								options={{ headerShown: true }}
+							/>
+							<Stack.Screen
+								name="Register"
+								component={RegisterScreen}
+								options={{ headerShown: false }}
+							/>
 						</Stack.Group>
 					</>
 				)}
@@ -49,6 +61,8 @@ const NavigationStack = () => {
 };
 
 export const BottomTabs = () => {
+	const { logout } = useContext(AuthContext);
+
 	return (
 		<NavigationContainer>
 			<Tab.Navigator>
@@ -56,21 +70,33 @@ export const BottomTabs = () => {
 					name="Home"
 					component={HomeScreen}
 					options={{
-						tabBarIcon: ({ color }) => <MaterialCommunityIcons name="home" color={color} size={26} />,
+						tabBarIcon: ({ color }) => (
+							<MaterialCommunityIcons name="home" color={color} size={26} />
+						),
 					}}
 				/>
 				<Tab.Screen
 					name="Products"
 					component={Products}
 					options={{
-						tabBarIcon: ({ color }) => <MaterialCommunityIcons name="shopping" color={color} size={26} />,
+						tabBarIcon: ({ color }) => (
+							<MaterialCommunityIcons name="shopping" color={color} size={26} />
+						),
 					}}
 				/>
 				<Tab.Screen
 					name="Logout"
 					component={Logout}
 					options={{
-						tabBarIcon: ({ color }) => <MaterialCommunityIcons name="logout" color='#FF0000' size={26} />,
+						tabBarIcon: () => (
+							<MaterialCommunityIcons name="logout" color="#FF0000" size={26} />
+						),
+					}}
+					listeners={{
+						tabPress: (e) => {
+							e.preventDefault();
+							logout();
+						},
 					}}
 				/>
 			</Tab.Navigator>

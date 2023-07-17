@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import APIKitDummy, { setClientTokenDummy } from '../API/APIKit';
+import APIKitDummy, { setClientTokenDummy } from '../../API/APIKit';
 import React, { createContext, useEffect, useState } from 'react';
 
 const defaultContext = {
@@ -9,18 +9,15 @@ const defaultContext = {
 	register: (name: string, email: string, password: string) => {},
 	login: (info: object) => {},
 	logout: () => {},
-	getProducts: () => {},
-	Products: [],
 };
 
 export const AuthContext = createContext(defaultContext);
 
 //dummy context for testing
-export const AuthProviderDummy = ({ children }) => {
+const AuthProviderDummy = ({ children }) => {
 	const [userInfo, setUserInfo] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
 	const [splashLoading, setSplashLoading] = useState(false);
-	const [Products, setProducts] = useState([]);
 
 	const register = (name: string, email: string, password: string) => {
 		setIsLoading(true);
@@ -75,35 +72,6 @@ export const AuthProviderDummy = ({ children }) => {
 		setIsLoading(false);
 	};
 
-	const getProducts = async () => {
-		setIsLoading(true);
-		let getKey = await AsyncStorage.getItem('key').then((res) => {
-			return res;
-		});
-
-		await APIKitDummy.get('auth/products/?limit=15', {
-			headers: {
-				Authorization: `Bearer ${getKey}`,
-				'Content-Type': 'application/json',
-			},
-		})
-			.then((res) => {
-				const products = [];
-				for (const key in res.data.products) {
-					const product = {
-						id: key,
-						...res.data.products[key], // ... is the spread operator to copy all the key value pairs
-					};
-					products.push(product);
-				}
-				console.log(products);
-				setProducts(products);
-				setIsLoading(false);
-			})
-			.catch((e) => {
-				console.log('Error Get Products function' + e);
-			});
-	};
 
 	const loggedIn = async () => {
 		try {
@@ -136,10 +104,10 @@ export const AuthProviderDummy = ({ children }) => {
 				register,
 				login,
 				logout,
-				getProducts,
-				Products,
 			}}>
 			{children}
 		</AuthContext.Provider>
 	);
 };
+
+export default AuthProviderDummy;
