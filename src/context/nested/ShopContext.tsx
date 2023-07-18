@@ -41,23 +41,22 @@ const ShopProvider = ({ children }) => {
 				setProducts([...Products, ...products]);
 				setTotalPages(total);
 				setIsLoading(false);
-			
-			
-				//console.log('Error Get Products function' + e);
-			
+			})
+			.catch((e) => {
+				console.log('Error Get Products function' + e);
+			});
 	};
 
-    let allPages = Math.ceil(totalPages / limit);
-    const loadMore = () => {
-		if (page < totalPages) {
+	let allPages = Math.ceil(totalPages / limit);
+	const loadMore = () => {
+		if (page < allPages) {
 			setPage(page + 1);
 		}
 	};
-
    
 
     useEffect(() => {
-        if (page >= allPages + 1) {
+		if (page >= allPages + 1) {
 			setIsAllDataLoaded(true);
 		} else {
 			setIsAllDataLoaded(false);
