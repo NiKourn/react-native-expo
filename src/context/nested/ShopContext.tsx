@@ -29,22 +29,22 @@ const ShopProvider = ({ children }) => {
 		
 		const skip = (page - 1) * limit;
 
-		await APIKitDummy.get(`auth/products/?limit=${limit}&skip=${skip}`, {
+		let result = await APIKitDummy.get(`auth/products/?limit=${limit}&skip=${skip}`, {
 			headers: {
 				Authorization: `Bearer ${getKey}`,
 				'Content-Type': 'application/json',
 			},
 		})
-			.then((res) => {
-				const { products, total } = res.data;
+			
+				const { products, total } = result.data;
 
 				setProducts([...Products, ...products]);
 				setTotalPages(total);
 				setIsLoading(false);
-			})
-			.catch((e) => {
-				console.log('Error Get Products function' + e);
-			});
+			
+			
+				//console.log('Error Get Products function' + e);
+			
 	};
 
     let allPages = Math.ceil(totalPages / limit);
