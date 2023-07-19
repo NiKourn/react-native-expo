@@ -17,7 +17,13 @@ const Products = () => {
 
 	useEffect(() => {
         getProducts();
-    }, [page]);
+    }, []);
+
+	useEffect(() => {
+		if (page > 1) {
+		  getProducts();
+		}
+	  }, [page]);
 
 	const handleImageLoad = () => {
 	  setImagesLoaded(true);
