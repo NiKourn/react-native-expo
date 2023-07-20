@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Text, View, Image, FlatList } from 'react-native';
+import { Text, View, Image, FlatList } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { ShopContext } from '../context/nested/ShopContext';
 import { styles, images } from '../styles/styles';
@@ -8,12 +9,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const Products = () => {
 	const { Products, isLoading, loadMore, isAllDataLoaded, page, getProducts } = useContext(ShopContext);
 	const [areImagesLoaded, setImagesLoaded] = useState(false);
-
+  
 	useEffect(() => {
-		getProducts();
+	  getProducts();
 	}, [page]);
 
 	const handleImageLoad = () => {
+		setImagesLoaded(true);
 		setImagesLoaded(true);
 	};
 
@@ -28,6 +30,7 @@ const Products = () => {
 
 	const renderItem = ({ item }) => (
 		<View style={styles.product}>
+			<Image source={{ uri: item.thumbnail }} style={images.images} onLoad={handleImageLoad} />
 			<Image source={{ uri: item.thumbnail }} style={images.images} onLoad={handleImageLoad} />
 			<Text key={item.id}>{item.title}</Text>
 		</View>

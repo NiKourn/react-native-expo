@@ -18,7 +18,7 @@ const ShopProvider = ({ children }) => {
 	const [page, setPage] = useState(1);
 	const [totalResults, setTotalResults] = useState(1);
 	const [Products, setProducts] = useState([]);
-	const [isAllDataLoaded, setIsAllDataLoaded] = useState(false);
+    const [isAllDataLoaded, setIsAllDataLoaded] = useState(false);
 
 	let limit = 15;
 	//get all products listing
@@ -34,7 +34,7 @@ const ShopProvider = ({ children }) => {
 			},
 		})
 			.then((res) => {
-				let { products, total } = res.data;
+				const { products, total } = res.data;
 
 				setProducts([...Products, ...products]);
 				setTotalResults(total);
@@ -48,19 +48,18 @@ const ShopProvider = ({ children }) => {
 
     let allPages = Math.ceil(totalResults / limit);
     const loadMore = () => {
-		if (page < allPages) {
+		if (page < totalResults) {
 			setPage(page + 1);
-			console.log('after setting page' + page);
 		}
 	};
 
-	useEffect(() => {
-		if (page >= allPages + 1) {
+    useEffect(() => {
+        if (page >= allPages + 1) {
 			setIsAllDataLoaded(true);
 		} else {
 			setIsAllDataLoaded(false);
 		}
-    },[page, totalResults]);
+	}, [page,  totalResults]);
 
 	return (
 		<ShopContext.Provider
