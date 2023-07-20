@@ -35,7 +35,7 @@ console.log('after get key');
 			},
 		})
 			.then((res) => {
-				const { products, total } = res.data;
+				let { products, total } = res.data;
 
 				setProducts([...Products, ...products]);
 				setTotalResults(total);
@@ -47,10 +47,11 @@ console.log('after get key');
 			});
 	};
 
-	let allPages = Math.ceil(totalResults / limit);
-	const loadMore = () => {
+    let allPages = Math.ceil(totalResults / limit);
+    const loadMore = () => {
 		if (page < allPages) {
 			setPage(page + 1);
+			console.log('after setting page' + page);
 		}
 	};
 
@@ -60,7 +61,7 @@ console.log('after get key');
 		} else {
 			setIsAllDataLoaded(false);
 		}
-	}, [page, allPages]);
+    },[page, totalResults]);
 
 	return (
 		<ShopContext.Provider
