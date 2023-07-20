@@ -27,7 +27,6 @@ const ShopProvider = ({ children }) => {
 		let getKey = await AsyncStorage.getItem('key');
 
 		const skip = (page - 1) * limit;
-console.log('after get key');
 		await APIKitDummy.get(`auth/products/?limit=${limit}&skip=${skip}`, {
 			headers: {
 				Authorization: `Bearer ${getKey}`,
