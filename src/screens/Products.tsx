@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Text, View, Image, FlatList } from 'react-native';
-import { Text, View, Image, FlatList } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { ShopContext } from '../context/nested/ShopContext';
 import { styles, images } from '../styles/styles';
